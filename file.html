@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalles del Juego</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      max-width: 900px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .game-image {
+      width: 50%;
+    }
+
+    .game-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .game-info {
+      width: 50%;
+      padding: 30px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .game-info h1 {
+      margin-top: 0;
+    }
+
+  .download-buttons-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+    @media (max-width: 768px) {
+      .content {
+        flex-direction: column;
+        max-width: 90%;
+        height: auto;
+      }
+      .game-image,
+      .game-info {
+        width: 100%;
+      }
+      .game-image img {
+        height: auto;
+      }
+    }
+
+    .background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  z-index: -1;
+  filter: blur(4px);
+}
+
+  </style>
+</head>
+<body>
+<div class="background-overlay" id="backgroundOverlay"></div>
+
+<body>
+  <div class="background-overlay" id="backgroundOverlay"></div>
+  <div class="content">...</div>
+</body>
+
+<div class="content">
+  <div class="game-image">
+    <img id="gameImage" src="" alt="Carátula del juego">
+  </div>
+  <div class="game-info">
+    <h1 id="gameTitle">Cargando...</h1>
+    <p id="gameDescription"></p>
+
+    <!-- Aquí se generarán los botones -->
+    <div id="downloadLinks" class="download-buttons-container"></div>
+  </div>
+</div>
+
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameId = urlParams.get('id') || 1;
+
+    const juegos = {
+      1: {
+        titulo: "Resident Evil 4",
+       descripcion: `Han pasado seis años desde el desastre biológico en Raccoon City.
+
+Leon S. Kennedy, uno de los sobrevivientes del incidente, ha sido reclutado como agente que responde directamente al presidente de los Estados Unidos.
+
+Con la experiencia de múltiples misiones a sus espaldas, Leon es enviado a rescatar a la hija secuestrada del presidente.
+
+Sus investigaciones lo llevan a una apartada aldea europea, donde algo muy extraño sucede con los aldeanos.
+
+Así comienza esta historia de un rescate desesperado y un horror implacable.`,
+         imagen: "imagenes_juegos/RE4.png",
+        descarga: "https://www.mediafire.com/file/4ywd9hypndanjiy/Resident_Evil_4.rar/file"
+      },
+      2: {
+        titulo: "Geometry Dash",
+        descripcion: `Geometry Dash (anteriormente llamado "Geometry Jump") es un videojuego de plataformas y videojuego rítmico creado en 2013 por el desarrollador sueco Robert Topala (más conocido como RobTop), y posteriormente desarrollado por su empresa independiente RobTop Games.`,
+        imagen: "imagenes_juegos/Geometry Dash Portada.jpg",
+        descarga: "https://www.mediafire.com/file/boiyw3b89zo4o8d/Geometry+Dash.zip/file"
+      },
+    3: {
+  titulo: "Left 4 Dead 2",
+  descripcion: `Left 4 Dead 2 comienza en Dead Center (ambientado en Savannah, Georgia ), donde los cuatro supervivientes son abandonados en el tejado de un hotel por helicópteros de rescate. Deciden dirigirse al centro comercial local, donde se encuentra un segundo punto de evacuación de la CEDA.`,
+  imagen: "imagenes_juegos/portada left4dead2.jpg",
+  descargas: [
+    { url: "https://www.mediafire.com/file/z6h5hg7jiwo75ij/Left+4+Dead+2.part1.rar/file", nombre: "Parte 1" },
+    { url: "https://www.mediafire.com/file/6qjj171w9wsr2az/Left+4+Dead+2.part2.rar/file", nombre: "Parte 2" }
+  ]
+},
+      4: {
+        titulo :"Hollow Knight",
+        descripcion : `Hollow Knight es un videojuego metroidvania de 2017 desarrollado y publicado por la desarrolladora independiente australiana Team Cherry. El jugador controla al Caballero, un guerrero insectoide que explora Hallownest, un reino caído asolado por una enfermedad sobrenatural.`,
+        imagen : "imagenes_juegos/portada Hk.jpg",
+        descarga :"https://www.mediafire.com/file/vziz8uc9kprb8d9/HollNgtwww.randrogames.com.rar/file"
+      }
+    };
+
+    const juego = juegos[gameId] || juegos[1];
+
+// Mostrar datos generales
+document.getElementById("gameTitle").textContent = juego.titulo;
+document.getElementById("gameImage").src = juego.imagen;
+document.getElementById("gameImage").alt = juego.titulo;
+document.getElementById("gameDescription").textContent = juego.descripcion;
+document.getElementById("backgroundOverlay").style.backgroundImage = `url('${juego.imagen}')`;
+
+
+// Limpiar y agregar múltiples botones de descarga
+const downloadLinksDiv = document.getElementById("downloadLinks");
+downloadLinksDiv.innerHTML = ""; // Limpiar por si ya había contenido
+
+if (juego.descargas && Array.isArray(juego.descargas)) {
+  juego.descargas.forEach(descarga => {
+    const a = document.createElement("a");
+    a.href = descarga.url;
+    a.target = "_blank";
+    a.className = "download-button";
+    a.textContent = "Descargar " + descarga.nombre;
+    downloadLinksDiv.appendChild(a);
+  });
+} else if (juego.descarga) {
+  // Soporte para estructura antigua
+  const a = document.createElement("a");
+  a.href = juego.descarga;
+  a.target = "_blank";
+  a.className = "download-button";
+  a.textContent = "Descargar Juego";
+  downloadLinksDiv.appendChild(a);
+}
+
+  </script>
+
+</body>
+</html>
+
